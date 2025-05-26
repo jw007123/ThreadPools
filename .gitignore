@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Build and platform-specific files
+External/
+Build/
+.vs/
+CMakeSettings.json

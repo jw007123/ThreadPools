@@ -4,22 +4,41 @@
 
 #include <iostream>
 #include <thread>
+#include <stack>
 
 #include "tracy/Tracy.hpp"
 #include "Eigen/Dense"
 
+#include "Jobs.h"
 #include "Locking.h"
+
+template <class RESULT_T, class... JOB_T>
+bool RunLockingTest()
+{
+	std::stack<std::tuple<JOB_T...>> job_stack;
+	std::mutex job_mutex;
+	std::queue<RESULT_T> result_queue;
+	std::mutex result_mutex;
+
+	Pools::Locking<RESULT_T, JOB_T...> thread_pool(
+		job_stack,
+		job_mutex,
+		result_queue,
+		result_mutex,
+		std::bind(SparseSolve, std::placeholders::_1, std::placeholders::_2)
+	);
+
+	return true;
+}
 
 bool RunTests()
 {
-    return true;
+	return RunLockingTest<Eigen::VectorXd, const Eigen::SparseMatrix<double>&, const Eigen::VectorXd&>();
 }
    
 void RunBenchmarks()
 {
 	ZoneScopedN("Benchmarks");
-
-	
 }
 
 int main()
@@ -31,3 +50,5 @@ int main()
 
     return 0;
 }
+
+template Pools::Locking<Eigen::VectorXd, const Eigen::SparseMatrix<double>&, const Eigen::VectorXd&>;

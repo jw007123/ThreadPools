@@ -13,7 +13,7 @@
 #include "Locking.h"
 
 template <class RESULT_T, class... JOB_T>
-bool RunLockingTest()
+bool RunLockingTest(const std::function<RESULT_T(JOB_T...)> job_function_)
 {
 	std::stack<std::tuple<JOB_T...>> job_stack;
 	std::mutex job_mutex;
@@ -25,7 +25,7 @@ bool RunLockingTest()
 		job_mutex,
 		result_queue,
 		result_mutex,
-		std::bind(SparseSolve, std::placeholders::_1, std::placeholders::_2)
+		job_function_
 	);
 
 	return true;
@@ -33,7 +33,7 @@ bool RunLockingTest()
 
 bool RunTests()
 {
-	return RunLockingTest<Eigen::VectorXd, const Eigen::SparseMatrix<double>&, const Eigen::VectorXd&>();
+	return RunLockingTest(std::bind(SparseSolve, std::placeholders::_1, std::placeholders::_2));
 }
    
 void RunBenchmarks()

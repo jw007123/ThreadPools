@@ -109,7 +109,7 @@ namespace Pools
 					job_mutex.unlock();
 					return std::apply(job_function, job_);
 				};
-#
+
 				// i. Move top element from stack and pass && job into StackUnlockerFunc
 				// ii. Pop the invalid item from the stack and unlock the job mutex
 				// iii. Run job and pass && result into QueueLockerFunc

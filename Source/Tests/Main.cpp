@@ -8,9 +8,7 @@
 #include "tracy/Tracy.hpp"
 #include "Eigen/Dense"
 
-#include "../Futex.cpp"
-#include "../Semaphore.cpp"
-#include "../Locking.cpp"
+#include "Locking.h"
 
 bool RunTests()
 {
@@ -21,12 +19,7 @@ void RunBenchmarks()
 {
 	ZoneScopedN("Benchmarks");
 
-	Eigen::MatrixXd f(10, 10);
-	f.setIdentity();
-	f(0, 0) = 2.0;
-
-	const Eigen::MatrixXd f_inv = f.inverse();
-	std::cout << std::to_string(f_inv(0, 0)) << std::endl;
+	
 }
 
 int main()

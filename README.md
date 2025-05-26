@@ -8,5 +8,5 @@ Testing a range of thread pool implementations and graphing how each performs wh
 * Futex: WIN_API and gcc futex implementation that should avoid slow (timed as ~400us on gcc) OS calls. Futex calls are explicitly single-process, so we should expect faster timings on thread wake-ups etc than the semaphore implementation.
 
 ## Progress
-* Basic sparse matrix job created. Aim is to have a range of jobs (20us -> 5000us in length) and test the futex implementation pretty thoroughly via that.
-* Locking implementation done bar compiling and verifying/fixing template errors.
+* Four jobs of varying time-to-complete added. Aim is to have a range of jobs (20us -> 5000us in length) and test the futex implementation pretty thoroughly via that.
+* Locking implementation compiling and in process of writing test. WinAPI needs adding to the CMake due to the SetThreadName function.

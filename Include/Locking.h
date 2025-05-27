@@ -70,7 +70,7 @@ namespace Pools
 
 		void Main(const size_t thread_idx_)
 		{
-			SetThreadName("Worker Thread" + std::to_string(thread_idx_))
+			Utility::SetThreadName(std::string("Worker Thread") + std::to_string(thread_idx_));
 
 			while (1)
 			{

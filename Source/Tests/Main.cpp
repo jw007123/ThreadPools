@@ -31,8 +31,20 @@ bool RunLockingTest(const std::function<RESULT_T(JOB_T...)> job_function_)
 	return true;
 }
 
+template <class RESULT_T, class... JOB_T>
+bool RunLockingTestA(const std::function<RESULT_T(JOB_T...)> job_function_)
+{
+	return true;
+}
+
 bool RunTests()
 {
+	auto x = [](const int x_) -> int
+		{
+			return x_;
+		};
+
+	RunLockingTestA<int, int>(x);
 	return RunLockingTest(std::bind(SparseSolve, std::placeholders::_1, std::placeholders::_2));
 }
    

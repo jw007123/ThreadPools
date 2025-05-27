@@ -12,5 +12,8 @@
 *	Helper functions to be used across the various implementations.
 */
 
-/// Sets the name of the calling thread. Useful for debugging purposes
-void SetThreadName(const std::string& name_);
+namespace Utility
+{
+	/// Sets the name of the calling thread. Useful for debugging purposes
+	void SetThreadName(const std::string& name_);
+}
